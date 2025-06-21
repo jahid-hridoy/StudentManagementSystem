@@ -1,0 +1,85 @@
+@model IEnumerable<StudentManagement.Models.StudentModel>
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h1>
+    <i class="bi bi-box-seam me-2"></i> Courses
+</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-dark fw-semibold mb-3" id="addProduct">
+        <i class="bi bi-plus-circle me-1"></i> Add Student Info
+    </a>
+</p>
+
+<form method="get" class="row row-cols-1 row-cols-md-3 g-3 align-items-end mb-4">
+    <div class="col">
+        <label for="status" class="form-label fw-semibold">Filter by Status:</label>
+        <select name="status" id="status" class="form-select shadow-sm">
+            <option value="">All Courses</option>
+            @foreach (var bg in Enum.GetNames(typeof(Status)))
+            {
+                <option value="@bg">@bg</option>
+            }
+        </select>
+    </div>
+    
+    <div class="col d-grid">
+        <button type="submit" class="btn btn-primary btn-lg shadow-sm">Search</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalMarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalMarks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="9">No Student Found</td>
+        </tr>
+    }
+    </tbody>
+</table>
